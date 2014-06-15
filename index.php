@@ -1,8 +1,6 @@
 <?php 
 
-require_once 'firebase-php/firebaseLib.php';
 
-require_once 'secret.php';
 
 // Defaults
 $message = "Tell Them in BIG";
@@ -32,6 +30,9 @@ foreach($_GET as $key => $value){
 
 if($message != "Tell Them in BIG")
 {
+  require_once 'firebase-php/firebaseLib.php';
+  require_once 'secret.php';
+  
   $firebase = new Firebase('https://telltheminbig.firebaseio.com/', $token);
   $firebase->push("/list/" . urlencode($message), array(
       'message' => $message,
