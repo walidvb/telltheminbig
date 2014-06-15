@@ -1,0 +1,5 @@
+DirectoryIndex index.php index.html index.htm
+
+RewriteEngine on
+RewriteRule ^([a-zA-Z0-9\%]+)$ index.php?q=$1 [B]
+#RewriteRule ^/$ index.php?q=tell%20it%20in%20big
