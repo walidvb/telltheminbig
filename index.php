@@ -1,7 +1,8 @@
 <?php 
 
-require_once '/lib/firebaseInterface.php';
-require_once '/lib/firebaseStub.php';
+require_once 'firebase-php/firebaseLib.php';
+
+require_once 'secret.php';
 
 // Defaults
 $message = "Tell Them in BIG";
@@ -28,6 +29,17 @@ foreach($_GET as $key => $value){
   $val = rawurlencode($value);
   $query .= "$key=$value";
 }
+
+if($message != "Tell Them in BIG")
+{
+  $firebase = new Firebase('https://telltheminbig.firebaseio.com/', $token);
+  $firebase->push("/list/" . urlencode($message), array(
+      'message' => $message,
+      'color1' => $color1,
+      'color2' => $color2,
+      'speed' => $speed
+    ));
+}
 ?>
 
 
@@ -45,10 +57,6 @@ foreach($_GET as $key => $value){
 <meta property="og:title" content="<?php print $message ?>, in BIG"></meta>
 <title><?php print $message ?></title>
 <script src="/jscolor.js"></script>
-<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.15/firebase.js'></script>
-<script>
-  var myRootRef = new Firebase('https://walidvb.firebaseio.com/');
-</script>
 <style type="text/css">
   marquee{
     
